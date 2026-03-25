@@ -12,7 +12,7 @@ st.set_page_config(page_title="Fraud Detection Dashboard", layout="wide")
 st.title("Credit Card Fraud Detection System")
 
 # ---------------- LOAD DATA ----------------
-df = pd.read_csv("data/raw/creditcard.csv")
+df = pd.read_csv("dashboard/sample_creditcard.csv")
 
 # ---------------- PROJECT OVERVIEW ----------------
 st.header("Project Overview")
