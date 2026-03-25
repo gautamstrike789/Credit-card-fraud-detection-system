@@ -1,24 +1,24 @@
-Credit Card Fraud Detection System
+# Credit Card Fraud Detection System
 
 An end-to-end machine learning system for detecting fraudulent credit card transactions, including a trained ML model, REST API, and an interactive analytics dashboard.
 
-The project demonstrates how a fraud detection model can be developed, deployed, and served through a real-time prediction system.
+This project demonstrates how a fraud detection model can be developed, deployed, and served through a real-time prediction system.
 
-Live System
-Dashboard
+---
 
-Interactive analytics dashboard
+## Live System
 
-[https://credit-card-fraud-detection-system-yhnycblp3dxrfxmklt7hg.streamlit.app](https://credit-card-fraud-detection-system-3v9qroqcgendr2wuwcksn5.streamlit.app/)
-API Endpoint
+### Dashboard (Streamlit)
+Interactive analytics dashboard:  
+https://credit-card-fraud-detection-system-3v9qroqcgendr2wuwcksn5.streamlit.app/
 
-Fraud detection prediction API
-
+### API (FastAPI + Swagger UI)
+Fraud detection prediction API docs (test via Swagger UI):  
 https://credit-card-fraud-detection-system-i6br.onrender.com/docs
 
-The API documentation page allows testing predictions directly through Swagger UI.
+---
 
-Project Overview
+## Project Overview
 
 Credit card fraud detection is a critical problem for financial institutions. Fraudulent transactions represent a very small fraction of total transactions, making the dataset highly imbalanced.
 
@@ -26,105 +26,106 @@ Traditional accuracy metrics are misleading in this scenario because a model pre
 
 This project focuses on building a system capable of identifying fraudulent transactions while maintaining strong recall and practical precision.
 
-The system includes:
+**The system includes:**
+- Machine learning fraud detection model
+- FastAPI prediction service
+- Streamlit analytics dashboard
+- Cloud deployment for both API and dashboard
 
-Machine learning fraud detection model
-FastAPI prediction service
-Streamlit analytics dashboard
-Cloud deployment for both API and dashboard
-Problem Statement
+---
+
+## Problem Statement
 
 Financial institutions process millions of transactions daily. Detecting fraudulent transactions in real time is essential to prevent financial losses.
 
-However, fraud detection presents several challenges:
+**Key challenges:**
+- Highly imbalanced datasets
+- Rare fraud events
+- High cost of false negatives
+- Need for real-time prediction systems
 
-Highly imbalanced datasets
-Rare fraud events
-High cost of false negatives
-Need for real-time prediction systems
+**Goal:** Build a machine learning system that can detect fraudulent credit card transactions while handling severe class imbalance.
 
-The goal of this project is to build a machine learning system that can detect fraudulent credit card transactions while handling severe class imbalance.
+---
 
-Objective
+## Objectives
 
-The primary objectives of this project were:
+- Develop a fraud detection ML model capable of identifying fraudulent transactions.
+- Handle severe class imbalance in financial transaction datasets.
+- Deploy the trained model using a REST API.
+- Build an interactive dashboard for fraud analytics and live predictions.
+- Create an end-to-end deployable system accessible via the web.
 
-Develop a fraud detection machine learning model capable of identifying fraudulent transactions.
-Handle severe class imbalance in financial transaction datasets.
-Deploy the trained model using a REST API.
-Build an interactive dashboard for fraud analytics and live predictions.
-Create an end-to-end deployable system accessible via the web.
-Dataset
+---
 
-The dataset used is the European Credit Card Fraud Detection Dataset.
+## Dataset
 
-Direct dataset link:
+The dataset used is the **European Credit Card Fraud Detection Dataset**.
 
-https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
+- Kaggle link: https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
-Dataset characteristics:
+**Dataset characteristics:**
+- Total transactions: **284,807**
+- Fraudulent transactions: **492**
+- Fraud rate: **0.172%**
+- Highly imbalanced classification problem
 
-Total transactions: 284,807
-Fraudulent transactions: 492
-Fraud rate: 0.172%
-Highly imbalanced classification problem
+**Features:**
+- `Time`
+- `Amount`
+- PCA features `V1`–`V28` (anonymized principal components)
+- `Class` (Fraud / Normal)
 
-The dataset features are anonymized principal components V1–V28 obtained using PCA transformation to protect sensitive financial data.
+> Note: Because the dataset is large, the deployed dashboard uses a smaller sample dataset for visualization, while the machine learning model was trained using the full dataset.
 
-Key fields include:
+---
 
-Time
-Amount
-PCA features (V1–V28)
-Class (Fraud / Normal)
+## Machine Learning Pipeline
 
-Because the dataset is large, the deployed dashboard uses a smaller sample dataset for visualization while the machine learning model was trained using the full dataset.
+### Steps
+- Data preprocessing
+- Handling class imbalance
+- Feature scaling
+- Train-test split
+- Feature selection
+- Model training
 
-Machine Learning Pipeline
+### Models Evaluated
+- Logistic Regression
+- Random Forest
 
-The model development pipeline includes:
+**Selected model:** Random Forest (better performance in detecting fraud cases)
 
-Data Preprocessing
-Handling class imbalance
-Feature scaling
-Train-test split
-Feature selection
-Model Training
+---
 
-Multiple models were evaluated including:
-
-Logistic Regression
-Random Forest
-
-Random Forest was selected due to better performance in detecting fraud cases.
-
-Evaluation Metrics
+## Evaluation Metrics
 
 Since fraud detection is an imbalanced problem, the following metrics were used:
+- Precision
+- Recall
+- F1 Score
+- ROC-AUC
 
-Precision
-Recall
-F1 Score
-ROC-AUC
+> Accuracy alone was not considered sufficient.
 
-Accuracy alone was not considered sufficient.
+---
 
-Model Performance
+## Model Performance
 
-Best performing model: Random Forest
+**Best performing model:** Random Forest
 
-Key results:
-
-ROC-AUC Score: 0.9839
-Fraud Recall: 0.85
-Fraud Precision: 0.43
+**Key results:**
+- ROC-AUC Score: **0.9839**
+- Fraud Recall: **0.85**
+- Fraud Precision: **0.43**
 
 The model successfully identifies the majority of fraudulent transactions while keeping false positives manageable.
 
-System Architecture
+---
 
-The system follows a modular architecture:
+## System Architecture
 
+```text
 Streamlit Dashboard
         │
         │ REST API request
@@ -134,24 +135,23 @@ FastAPI Fraud Detection API
         │ Model inference
         ▼
 Trained Fraud Detection Model
+```
 
-Components:
+### Components
+- **Dashboard:** Interactive analytics and live fraud prediction
+- **API:** FastAPI service hosting the trained ML model
+- **Model:** Random Forest fraud detection model trained using Scikit-learn
 
-Dashboard
-Interactive analytics and live fraud prediction
+---
 
-API
-FastAPI service hosting the trained ML model
+## API Usage
 
-Model
-Random Forest fraud detection model trained using Scikit-learn
+### Endpoint
+`POST /predict`
 
-API Request Example
+### Example Request (Python)
 
-The API accepts transaction features and returns a fraud probability along with a risk classification.
-
-Example request using Python
-
+```python
 import requests
 
 url = "https://credit-card-fraud-detection-system-i6br.onrender.com/predict"
@@ -190,37 +190,44 @@ sample_transaction = {
 }
 
 response = requests.post(url, json=sample_transaction)
-
 print(response.json())
+```
 
-Example API response:
+### Example Response
 
+```json
 {
   "prediction": 0,
   "fraud_probability": 0.03,
   "risk_label": "Low Risk",
   "recommended_action": "Approve Transaction"
 }
-Dashboard Features
+```
+
+---
+
+## Dashboard Features
 
 The Streamlit dashboard provides:
 
-Dataset overview
+### Dataset Overview
+- Total transactions
+- Fraud rate
 
-total transactions
-fraud rate
+### Fraud Analytics
+- Fraud distribution
+- Transaction amount distribution
 
-Fraud analytics
+### Live Fraud Prediction
+- Sends transaction data to the API
+- Receives fraud probability
+- Displays risk classification
 
-fraud distribution
-transaction amount distribution
+---
 
-Live fraud prediction
+## Project Structure
 
-sends transaction data to the API
-receives fraud probability
-displays risk classification
-Project Structure
+```text
 credit-card-fraud-detection-system
 │
 ├── api
@@ -243,65 +250,68 @@ credit-card-fraud-detection-system
 │
 ├── requirements.txt
 └── README.md
-Challenges Faced
+```
 
-Several challenges were encountered during development.
+---
 
-Dataset Quality Issues
+## Challenges Faced
 
+### Dataset Quality Issues
 The initial dataset used contained a large number of duplicate rows which resulted in misleading model performance. Once duplicates were removed, performance dropped significantly, indicating data leakage.
 
 To address this issue, a more reliable fraud detection dataset was selected.
 
-Severe Class Imbalance
-
-Fraud cases represented less than 0.2% of transactions. Accuracy was therefore not a reliable metric.
+### Severe Class Imbalance
+Fraud cases represented less than 0.2% of transactions, so accuracy was not a reliable metric.
 
 The model evaluation focused on:
+- Recall for fraud cases
+- ROC-AUC score
+- Precision-Recall balance
 
-Recall for fraud cases
-ROC-AUC score
-Precision-Recall balance
-Deployment Issues
-
+### Deployment Issues
 Several deployment challenges were resolved:
+- API deployment configuration on Render
+- Python dependency conflicts
+- Streamlit deployment errors
+- Python version compatibility issues
+- Environment variable configuration between dashboard and API
 
-API deployment configuration on Render
-Python dependency conflicts
-Streamlit deployment errors
-Python version compatibility issues
-Environment variable configuration between dashboard and API
-Conclusion
+---
+
+## Conclusion
 
 This project demonstrates how a machine learning fraud detection system can be developed and deployed as a full end-to-end application.
 
-Key outcomes include:
-
-successful fraud detection model
-deployed REST API
-interactive analytics dashboard
-cloud deployment of the entire system
+**Key outcomes:**
+- Successful fraud detection model
+- Deployed REST API
+- Interactive analytics dashboard
+- Cloud deployment of the entire system
 
 The system illustrates how machine learning models can be integrated into real-world applications for financial risk detection.
 
-Future Enhancements
+---
 
-Possible improvements include:
+## Future Enhancements
 
-Model interpretability using SHAP
-Threshold optimization for fraud detection
-Real-time transaction streaming
-Docker containerization
-CI/CD pipeline integration
-Automated model retraining pipeline
-Enhanced dashboard visualizations for fraud investigation
-Technologies Used
+- Model interpretability using SHAP
+- Threshold optimization for fraud detection
+- Real-time transaction streaming
+- Docker containerization
+- CI/CD pipeline integration
+- Automated model retraining pipeline
+- Enhanced dashboard visualizations for fraud investigation
 
-Python
-Pandas
-NumPy
-Scikit-learn
-FastAPI
-Streamlit
-Render Cloud
-GitHub
+---
+
+## Technologies Used
+
+- Python
+- Pandas
+- NumPy
+- Scikit-learn
+- FastAPI
+- Streamlit
+- Render Cloud
+- GitHub
