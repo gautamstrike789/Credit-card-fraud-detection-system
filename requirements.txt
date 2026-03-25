@@ -9,4 +9,5 @@ imblearn
 uvicorn
 streamlit
 requests
+altair
 python-multipart
