@@ -9,5 +9,5 @@ imblearn
 uvicorn
 streamlit
 requests
-altair
+altair==4.2.2
 python-multipart
